@@ -11,17 +11,29 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/login' do
-
+    @user = User.where(username: params[:username]).first
+    if @user != nil && params[:password] == @user.password
+      session[:user_id] = @user.id
+      redirect '/account'
+    else
+      erb :error
+    end
   end
 
   get '/account' do
-
+    @current_user = User.where(id: session[:user_id]).first
+    if @current_user
+      erb :account
+    else
+      erb :error
+    end
   end
 
   get '/logout' do
+    session.clear
 
+    redirect '/'
   end
 
 
 end
-
