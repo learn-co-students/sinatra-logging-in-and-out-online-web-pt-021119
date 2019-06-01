@@ -9,8 +9,8 @@
 
     <% if Helpers.is_logged_in?(session) %>
     <p>
-      <label><%= Helpers.current_user(session).username %>: </label>
-      <span><%= Helpers.current_user(session).balance %></span>
+      <h1>Welcome <%= Helpers.current_user(session).username %></h1>
+      <h3>Your Balance: <%= Helpers.current_user(session).balance.to_f %></h3>
     </p>
 
     <p>

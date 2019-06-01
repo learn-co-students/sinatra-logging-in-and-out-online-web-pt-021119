@@ -11,9 +11,8 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/login' do
-
     @user = User.where(username: params[:username]).first
-    if !@user.nil? && params[:password] == @user.password
+    if @user != nil && params[:password] == @user.password
       session[:user_id] = @user.id
       redirect '/account'
     else
@@ -26,7 +25,7 @@ class ApplicationController < Sinatra::Base
     if @current_user
       erb :account
     else
-      erb :login
+      erb :error
     end
   end
 
